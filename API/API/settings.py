@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apiapp',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'API.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'inhgitvs',
+        'USER': 'inhgitvs',
+        'PASSWORD': 'YBfg06i5SFna0V4es4Wf9WTm4_VDGrSE',
+        'HOST':'lucky.db.elephantsql.com',
+        'PORT':5432
     }
 }
 
