@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinLengthValidator,EmailValidator
 from datetime import datetime
 
+
 # Create your models here.
 class User(models.Model):
     username=models.CharField(primary_key=True,auto_created=False)
