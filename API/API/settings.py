@@ -9,12 +9,28 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set the 'SESSION_COOKIE_SECURE' to True for HTTPS-only sessions (recommended in production)
+SESSION_COOKIE_SECURE = True
+
+# Set the 'SESSION_COOKIE_HTTPONLY' to True to prevent client-side JavaScript access to the session cookie
+SESSION_COOKIE_HTTPONLY = True
+
+# Set the 'SESSION_COOKIE_SAMESITE' to 'Lax' or 'Strict' to prevent CSRF attacks (recommended in production)
+SESSION_COOKIE_SAMESITE = 'Lax'  # or 'Strict'
+
+# Set the 'SESSION_COOKIE_AGE' to control the session timeout (in seconds)
+SESSION_COOKIE_AGE = 3600 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -137,3 +153,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
