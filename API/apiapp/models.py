@@ -7,7 +7,7 @@ from datetime import datetime
 class User(models.Model):
     username=models.CharField(primary_key=True,auto_created=False)
     name = models.CharField(max_length=100,null=True,validators=[MinLengthValidator(8)])
-    email = models.EmailField(null=False,validators=[EmailValidator()])
+    email = models.EmailField(null=False,validators=[EmailValidator()],unique=True)
     password = models.CharField(max_length=100,null=False)
     age=models.IntegerField(null=True)
     datejoined=models.DateTimeField(auto_created=True,default=datetime.now())
