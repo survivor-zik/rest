@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
 from .models import User
+from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password, check_password
 from .serializers import UserSerializer
 from rest_framework.parsers import JSONParser
@@ -8,6 +9,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -82,3 +85,5 @@ def login(request):
         else:
             return Response({'message': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+

@@ -13,6 +13,6 @@ class User(models.Model):
     datejoined=models.DateTimeField(auto_created=True,default=datetime.now())
     
     def __str__(self):
-        return self.name
+        return self.username
     
 
