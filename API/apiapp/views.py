@@ -48,33 +48,40 @@ def user_details(request,username):
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
     if request.method =='GET':
-        serializer=UserSerializer(user)
         response_data = {
                 
                 'username': username,
-                'status':status
+                'status':status.HTTP_200_OK,
             }
         logging.info(f"""Details delivered {datetime.now()} of username {username}""")
         return Response(response_data)
-    elif request.method =='PUT':
-        data=request.data
+    elif request.method == 'PUT':
+        data = request.data
         try:
-            user=User.objects.get(username=username)
-            
+            user = User.objects.get(username=username)
         except User.DoesNotExist:
-        # print(username)
-            logging.warning(f"""Invalid Credentials at {datetime.now()} with username {username} """)
-            
-        serializer=UserSerializer(user,data=data,partial=True)
+            logging.warning(f"Invalid Credentials at {datetime.now()} with username {username}")
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        # Update serializer data with the password if present
+        password = data.get('password')
+        if password:
+            if not check_password(password, user.password):
+                hashed_password = make_password(password)
+                data['password'] = hashed_password
+
+        serializer = UserSerializer(user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             response_data = {
                 'message': 'User Updated successfully',
                 'username': username,
             }
-            logging.info(f"""Details updated {datetime.now()} of username {username}""")
-            return Response(response_data,status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            logging.info(f"Details updated {datetime.now()} of username {username}")
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     elif request.method =='DELETE':
         user.delete()
         response_data = {
