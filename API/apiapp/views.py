@@ -15,7 +15,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework import permissions 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world.")
 
 @api_view(['POST'])
 def registerUsers(request):
@@ -25,7 +25,7 @@ def registerUsers(request):
         hashed_password = make_password(password)
         data['password'] = hashed_password
         serializer=UserSerializer(data=data)
-        logging.info(f"""registration attempt {datetime.now()} with credentials {data['username']} """)
+        logging.info(f"""registration attempt {datetime.now()} with credentials """)
         if serializer.is_valid():
             serializer.save()
             response_data = {
