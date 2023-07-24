@@ -27,12 +27,12 @@ COPY . .
 
 # Tell Django how to talk to the database
 RUN echo 'DATABASES={"default": {\\
-    "ENGINE": "django.db.backends.postgresql_psycopg2", \\
-    "NAME": "mydb", \\
-    "USER": "myuser", \\
-    "PASSWORD": "password", \\
-    "HOST": "localhost", \\
-    "PORT": ""}}' >> settings.py
+    "ENGINE": "django.db.backends.postgresql", \\
+    "NAME": "zoidmvci", \\
+    "USER": "zoidmvci", \\
+    "PASSWORD": "vLh62wtTh2l5Ye28j9zrYILOPRk5hagz", \\
+    "HOST": "trumpet.db.elephantsql.com", \\
+    "PORT": "5432"}}' >> settings.py
 
 # Allow local connections to the site
 RUN echo "ALLOWED_HOSTS = ['localhost']" >> settings.py
