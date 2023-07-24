@@ -1,3 +1,6 @@
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinLengthValidator, EmailValidator
+from django.utils import timezone
 from django.db import models
 from django.core.validators import MinLengthValidator,EmailValidator
 from datetime import datetime
@@ -15,4 +18,6 @@ class User(models.Model):
     def __str__(self):
         return self.username
     
-
+    
+    
+    

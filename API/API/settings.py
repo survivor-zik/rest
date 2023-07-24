@@ -15,6 +15,10 @@ from logging.handlers import RotatingFileHandler
 
 from pathlib import Path
 
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -104,15 +108,13 @@ WSGI_APPLICATION = 'API.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inhgitvs',
-        'USER': 'inhgitvs',
-        'PASSWORD': 'YBfg06i5SFna0V4es4Wf9WTm4_VDGrSE',
-        'HOST':'lucky.db.elephantsql.com',
+        'NAME': 'zoidmvci',
+        'USER': 'zoidmvci',
+        'PASSWORD': 'vLh62wtTh2l5Ye28j9zrYILOPRk5hagz',
+        'HOST':'trumpet.db.elephantsql.com',
         'PORT':5432
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

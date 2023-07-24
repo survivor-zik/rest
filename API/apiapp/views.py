@@ -8,17 +8,15 @@ from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password, check_password
 from .serializers import UserSerializer
 from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
+from rest_framework import permissions 
 
 def index(request):
-    
     return HttpResponse("Hello, world. You're at the polls index.")
 
-# Create your views here.
 @api_view(['POST'])
 def registerUsers(request):
     if request.method =='POST':
@@ -59,7 +57,14 @@ def user_details(request,username):
         logging.info(f"""Details delivered {datetime.now()} of username {username}""")
         return Response(response_data)
     elif request.method =='PUT':
-        data=JSONParser().parse(request)
+        data=request.data
+        try:
+            user=User.objects.get(username=username)
+            
+        except User.DoesNotExist:
+        # print(username)
+            logging.warning(f"""Invalid Credentials at {datetime.now()} with username {username} """)
+            
         serializer=UserSerializer(user,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -96,9 +101,3 @@ def login(request):
         else:
             return Response({'message': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-
-
-
