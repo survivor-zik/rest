@@ -45,7 +45,8 @@ def user_details(request,username):
         # print(username)
         logging.warning(f"""Invalid Credentials at {datetime.now()} with username {username} """)
         
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message":"User Does not Exist.",
+                         "status":False})
     
     if request.method =='GET':
         response_data = {
@@ -61,7 +62,7 @@ def user_details(request,username):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             logging.warning(f"Invalid Credentials at {datetime.now()} with username {username}")
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message":"User Doesnot Exist"})
 
         # Update serializer data with the password if present
         password = data.get('password')
@@ -79,8 +80,11 @@ def user_details(request,username):
             }
             logging.info(f"Details updated {datetime.now()} of username {username}")
             return Response(response_data, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        response_data={
+            'message':serializer.errors,
+            'status':False
+        }
+        return Response(response_data)
 
     elif request.method =='DELETE':
         user.delete()
@@ -90,7 +94,7 @@ def user_details(request,username):
             }
         logging.info(f"""Details deleted {datetime.now()} of username {username}""")
         return Response(response_data,status=status.HTTP_204_NO_CONTENT)
-
+    return Response({"message":"User Doesnot Exist"})
 @api_view(['POST'])
 def login(request):
     
